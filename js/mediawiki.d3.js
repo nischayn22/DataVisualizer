@@ -1,6 +1,6 @@
 ( function( $ ) {
 
-function dv_d3( element, i ){
+function dv_d3_tree( element, i ){
 	var d3ID   = element.attr( 'id' ),
 	root = $.parseJSON( element.attr('dv_data') );
 
@@ -51,7 +51,7 @@ function dv_d3( element, i ){
 	node.append("svg:a")
 		.attr( "xlink:href", function(d){return d.link !== undefined ? d.link : '' ;})
 		.append("svg:text")
-		.text(function(d) { return d.name; })
+		.text(function(d) { return d.name.replace('_',' '); })
 		.attr("dy", ".31em")
 		.attr("dx", function(d){ return d.x < 180 ? "-2.31em" : d.x < 220 ? "1.31em" : "2.31em"})
 		.attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
@@ -69,18 +69,18 @@ function dv_d3( element, i ){
 
 ( function ( $ ) {
 
-	$.fn.dv_d3 = function( i ) {
-		dv_d3( this , i );
+	$.fn.dv_d3_tree = function( i ) {
+		dv_d3_tree( this , i );
 		return this;
 	};
 } )( $ );
 
 $( document ).ready( function () { //jquery
-	$( '.dv_sd' ).each( function ( i, member ) {
-		$( member ).attr( "id", 'dv_sd' + i );
+	$( '.dv_d3_tree' ).each( function ( i, member ) {
+		$( member ).attr( "id", 'dv_d3_tree' + i );
 	} );
-	$( '.dv_sd' ).each( function ( i, member ) {
-		$( member ).dv_d3( i );
+	$( '.dv_d3_tree' ).each( function ( i, member ) {
+		$( member ).dv_d3_tree( i );
 	} );
 } );
 

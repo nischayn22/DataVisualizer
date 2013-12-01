@@ -4,6 +4,10 @@
   stroke-width: 1.5px;
 }
 
+.node circle:hover{
+	fill: steelblue;
+}
+
 .node {
 /*
   font: 20px sans-serif;

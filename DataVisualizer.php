@@ -10,14 +10,14 @@
  * @file DataVisualizer.php
  * @ingroup DataVisualizer
  *
- * @licence GNU GPL v3+
+ * @licence MIT
  * @author Nischay Nahata < nischayn22@gmail.com >
  */
 
 /**
  * This documentation group collects source code files belonging to Data Visualizer.
  *
- * @defgroup DataVisualizer Data Visualizer
+ * @defgroup DataVisualizer DataVisualizer
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) {
@@ -47,13 +47,9 @@ $wgExtensionMessagesFiles['DataVisualizer'] = $egDataVisualizerIP . '/DataVisual
 $wgAutoloadClasses['DataVisualizerAPI'] = $egDataVisualizerIP . '/DataVisualizerAPI.php';
 
 $wgResourceModules['ext.DataVisualizer'] = array(
-        // JavaScript and CSS styles.
-        'scripts' => array( 'libraries/d3/d3.v3.min.js', 'js/mediawiki.d3.js' ),
-        'styles' => array( 'css/style.css' ),
-        // When your module is loaded, these messages will be available through mw.msg()
-//        'messages' => array( 'msu-description', 'msu-button_title', 'msu-insert_link', 'msu-insert_gallery', 'msu-insert_picture', 'msu-insert_movie', 'msu-cancel_upload', 'msu-upload_possible', 'msu-ext_not_allowed', 'msu-upload_this', 'msu-upload_all', 'msu-dropzone', 'msu-comment' ),
-//       'dependencies' => array( 'jquery.ui.progressbar' ),
-        // subdir relative to "/extensions"
-        'localBasePath' => dirname( __FILE__ ),
-        'remoteExtPath' => 'DataVisualizer'
+	// JavaScript and CSS styles.
+	'scripts' => array( 'libraries/d3/d3.v3.min.js', 'js/mediawiki.d3.js' ),
+	'styles' => array( 'css/style.css' ),
+	'localBasePath' => dirname( __FILE__ ),
+	'remoteExtPath' => 'DataVisualizer'
 );
