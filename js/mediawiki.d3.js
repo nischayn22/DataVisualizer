@@ -4,13 +4,13 @@ function dv_d3( element, i ){
 	var d3ID   = element.attr( 'id' ),
 	root = $.parseJSON( element.attr('dv_data') );
 
-	var diameter = 660;
+	var diameter = 360;
 
 	var tree = d3.layout.tree()
-		.size([360, diameter / 2 - 120]);
+		.size([360, diameter / 2 - 60]);
 
 	var svg = d3.select( "#" + d3ID ).append("svg")
-		.attr("width", diameter)
+		.attr("width", diameter )
 		.attr("height", diameter )
 		.append("g")
 		.attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
@@ -32,21 +32,39 @@ function dv_d3( element, i ){
 		.data(nodes)
 		.enter().append("g")
 		.attr("class", "node")
-		.attr("transform", function(d) { console.log(d.x, d.y);  return "rotate(" + (d.x - 180) + ")translate(" + d.y + ")"; })
+		.attr("transform", function(d) { return "rotate(" + (d.x - 180) + ")translate(" + d.y + ")"; });
+
+	var maxSize = 0;
+	$.each(nodes[0].children, function( index, value ) {
+		var child = value;
+		maxSize = Math.max(maxSize,child.size);
+	});
 
 	node.append("circle")
-		//to get size of circle same as size of text
-		//.attr("r", function(d) { return d.name.length*7;  } );
-		.attr("r", 25);
+		.attr("r", function(d){ 
+			var size = maxSize/2;
+			if( d.size !== undefined )
+				size = d.size;
+			return 20 + 10*( size/maxSize );
+		});
 
-	node.append("text")
+	node.append("svg:a")
+		.attr( "xlink:href", function(d){return d.link !== undefined ? d.link : '' ;})
+		.append("svg:text")
+		.text(function(d) { return d.name; })
 		.attr("dy", ".31em")
 		.attr("dx", function(d){ return d.x < 180 ? "-2.31em" : d.x < 220 ? "1.31em" : "2.31em"})
 		.attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
 		.attr("transform", function(d) {  return "rotate(" + -(d.x - 180) + ")"; })
-		.text(function(d) { return d.name; });
+		.attr("font-size",function(d) {
+			var size = maxSize/2;
+			if( d.size !== undefined )
+				size = d.size;
+			return 10 + 10*( size/maxSize );
+		});
 
-	d3.select(self.frameElement).style("height", diameter - 150 + "px");
+
+		d3.select(self.frameElement).style("height", diameter - 150 + "px");
 };
 
 ( function ( $ ) {
