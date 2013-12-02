@@ -51,7 +51,7 @@ function dv_d3_tree( element, i ){
 	node.append("svg:a")
 		.attr( "xlink:href", function(d){return d.link !== undefined ? d.link : '' ;})
 		.append("svg:text")
-		.text(function(d) { return d.name.replace('_',' '); })
+		.text(function(d) { return d.name.replace(/_/g,' '); })
 		.attr("dy", ".31em")
 		.attr("dx", function(d){ return d.x < 180 ? "-2.31em" : d.x < 220 ? "1.31em" : "2.31em"})
 		.attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
@@ -62,7 +62,6 @@ function dv_d3_tree( element, i ){
 				size = d.size;
 			return 10 + 10*( size/maxSize );
 		});
-
 
 		d3.select(self.frameElement).style("height", diameter - 150 + "px");
 };
