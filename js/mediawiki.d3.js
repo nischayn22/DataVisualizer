@@ -46,21 +46,21 @@ function dv_d3_tree( element, i ){
 			if( d.size !== undefined )
 				size = d.size;
 			return 20 + 10*( size/maxSize );
+		})
+		.on("click", function(d) {
+			window.location = d.link !== undefined ? d.link : '' ;
 		});
 
-	node.append("svg:a")
-		.attr( "xlink:href", function(d){return d.link !== undefined ? d.link : '' ;})
-		.append("svg:text")
-		.text(function(d) { return d.name.replace(/_/g,' '); })
-		.attr("dy", ".31em")
-		.attr("dx", function(d){ return d.x < 180 ? "-2.31em" : d.x < 220 ? "1.31em" : "2.31em"})
-		.attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+	node.append("text")
+        .attr("dx", function(d){ return -d.name.length*3})
+        .attr("dy", function(d){return 5})
+		.text(function(d) {
+			var title = d.name.replace(/_/g,' ');
+			return title;
+		})
 		.attr("transform", function(d) {  return "rotate(" + -(d.x - 180) + ")"; })
-		.attr("font-size",function(d) {
-			var size = maxSize/2;
-			if( d.size !== undefined )
-				size = d.size;
-			return 10 + 10*( size/maxSize );
+		.on("click", function(d) {
+			window.location = d.link !== undefined ? d.link : '' ;
 		});
 
 		d3.select(self.frameElement).style("height", diameter - 150 + "px");
