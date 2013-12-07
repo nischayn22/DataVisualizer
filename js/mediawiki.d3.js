@@ -51,17 +51,20 @@ function dv_d3_tree( element, i ){
 			window.location = d.link !== undefined ? d.link : '' ;
 		});
 
-	node.append("text")
-        .attr("dx", function(d){ return -d.name.length*3})
-        .attr("dy", function(d){return 5})
-		.text(function(d) {
-			var title = d.name.replace(/_/g,' ');
-			return title;
-		})
+	node.append("foreignObject")
 		.attr("transform", function(d) {  return "rotate(" + -(d.x - 180) + ")"; })
+		.attr("dx", function(d){ return -d.name.length*5})
+        .attr("dy", function(d){return 10})
+		.attr("width", 100)
+		.attr("height", 90)
 		.on("click", function(d) {
 			window.location = d.link !== undefined ? d.link : '' ;
-		});
+		})
+		.append("xhtml:body")
+		.style("font", "14px 'Helvetica Neue'")
+		.style("background-color", "transparent")
+		.html( function(d){ return d.name.replace(/_/g,' '); }
+		);
 
 		d3.select(self.frameElement).style("height", diameter - 150 + "px");
 };
