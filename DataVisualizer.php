@@ -42,6 +42,39 @@ $egDataVisualizerScriptPath = ( $useExtensionPath ? $wgExtensionAssetsPath : $wg
 $egDataVisualizerIP = dirname( __FILE__ );
 unset( $useExtensionPath );
 
+$wgHooks['ParserFirstCallInit'][] = 'wfDVParserInit';
+
+function wfDVParserInit( Parser $parser ) {
+	$parser->setHook( 'dv_d3_tree', 'wfDvD3TreeRender' );
+	return true;
+}
+
+//TODO: move this somewhere else
+//Example: <dv_d3_tree name="Filters we have" size="2">name=age|link=lol|size=1,name=country|link=lolagain|size=1</dv_d3_tree>
+function wfDvD3TreeRender( $input, array $args, Parser $parser, PPFrame $frame ) {
+	$children_str = explode( ',', $input );
+	$children = array();
+	foreach( $children_str as $child_str)
+	{
+		$child = array();
+		$keyvalues_str = explode( '|', $child_str );
+		foreach( $keyvalues_str as $keyvalue_str )
+		{
+			$keyvalue = explode( '=', $keyvalue_str );
+			$child[$keyvalue[0]] = $keyvalue[1];
+		}
+		$children[] = $child;
+	}
+
+	$data = array(
+		'name' => $args['name'] ? str_replace( ' ', '_', $args['name'] ) : "Browser",
+		'children'=> $children,
+		'size' => $args['size'] ? $args['size'] : 1
+	);
+
+	return DataVisualizerAPI::getHTMLForTree($data);
+}
+
 $wgExtensionMessagesFiles['DataVisualizer'] = $egDataVisualizerIP . '/DataVisualizer.i18n.php';
 
 $wgAutoloadClasses['DataVisualizerAPI'] = $egDataVisualizerIP . '/DataVisualizerAPI.php';
