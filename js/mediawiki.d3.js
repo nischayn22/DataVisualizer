@@ -53,16 +53,25 @@ function dv_d3_tree( element, i ){
 
 	node.append("foreignObject")
 		.attr("transform", function(d) {  return "rotate(" + -(d.x - 180) + ")"; })
-		.attr("dx", function(d){ return -d.name.length*5})
-        .attr("dy", function(d){return 10})
-		.attr("width", 100)
-		.attr("height", 90)
+		.attr("x", function(d){
+			var size = maxSize/2;
+			if( d.size !== undefined )
+				size = d.size;
+			return -(22 + 10*( size/maxSize ));
+		})
+        .attr("y", function(d){return -20})
+		.attr("width", 60)
+		.attr("height", 40)
+		.style("background-color", "transparent")
 		.on("click", function(d) {
 			window.location = d.link !== undefined ? d.link : '' ;
 		})
-		.append("xhtml:body")
+		.append("xhtml:p")
 		.style("font", "14px 'Helvetica Neue'")
 		.style("background-color", "transparent")
+		.style("text-align", "center")
+		.style("vertical-align", "middle")
+		.style("padding", "5px")
 		.html( function(d){ return d.name.replace(/_/g,' '); }
 		);
 
