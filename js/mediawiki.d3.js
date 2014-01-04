@@ -45,7 +45,7 @@ function dv_d3_tree( element, i ){
 			var size = maxSize/2;
 			if( d.size !== undefined )
 				size = d.size;
-			return 20 + 10*( size/maxSize );
+			return 25 + 10*( size/maxSize );
 		})
 		.on("click", function(d) {
 			window.location = d.link !== undefined ? d.link : '' ;
@@ -57,22 +57,52 @@ function dv_d3_tree( element, i ){
 			var size = maxSize/2;
 			if( d.size !== undefined )
 				size = d.size;
-			return -(22 + 10*( size/maxSize ));
+			return -(25-2 + 10*( size/maxSize ));
 		})
-        .attr("y", function(d){return -20})
-		.attr("width", 60)
-		.attr("height", 40)
+		.attr("y", function(d){
+			return -27;
+		})
+		.attr("width", function(d){
+			var size = maxSize/2;
+			if( d.size !== undefined )
+				size = d.size;
+			return 2* (25-2 + 10*( size/maxSize ));
+		})
+		.attr("height", function(d){
+			var size = maxSize/2;
+			if( d.size !== undefined )
+				size = d.size;
+			return 2* (27 + 10*( size/maxSize ));
+		})
 		.style("background-color", "transparent")
 		.on("click", function(d) {
 			window.location = d.link !== undefined ? d.link : '' ;
 		})
 		.append("xhtml:p")
-		.style("font", "14px 'Helvetica Neue'")
+		.style("font", function(d){
+			var len = d.name.length;
+			if( len > 15 )
+				return "10px 'Helvetica Neue'";
+			else if(len > 8)
+				return "12px 'Helvetica Neue'";
+			else
+				return "14px 'Helvetica Neue'";
+		})
+		.style("border-radius", "100%")
 		.style("background-color", "transparent")
+		.style("background", "transparent")
 		.style("text-align", "center")
 		.style("vertical-align", "middle")
-		.style("padding", "5px")
-		.html( function(d){ return d.name.replace(/_/g,' '); }
+		.style("padding-top", "10px")
+		.style("padding-left", "3px")
+		.style("padding-right", "3px")
+		.html( function(d){
+			if(d.name.length > 20)
+			{
+				d.name = d.name.substr(0,20);
+				d.name += '...';
+			}
+			return d.name.replace(/_/g,' '); }
 		);
 
 		d3.select(self.frameElement).style("height", diameter - 150 + "px");
