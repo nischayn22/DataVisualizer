@@ -75,6 +75,7 @@ function dv_d3_tree( element, i ){
 			return 2* (27 + 10*( size/maxSize ));
 		})
 		.style("background-color", "transparent")
+		.style("background", "transparent")
 		.on("click", function(d) {
 			window.location = d.link !== undefined ? d.link : '' ;
 		})
