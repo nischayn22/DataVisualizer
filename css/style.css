@@ -1,5 +1,5 @@
 .node circle {
-  fill: #fff;
+  fill: #8BD7F4;
   stroke: #8BD7F4;
   stroke-width: 1.5px;
 }
@@ -8,7 +8,7 @@
 .node body:hover {cursor: hand; cursor: pointer;}
 
 .node circle:hover{
-	fill: #8BD7F4;
+	fill: #fff;
 }
 
 .node {
@@ -20,7 +20,8 @@
 .link {
   fill: none;
   stroke: #988F86;
-  stroke-width: 1.5px;
+  stroke-width: 2.5px;
+  stroke-dasharray: 3,1;
 }
 
 .node a:hover{

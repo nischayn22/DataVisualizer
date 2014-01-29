@@ -45,7 +45,7 @@ function dv_d3_tree( element, i ){
 			var size = maxSize/2;
 			if( d.size !== undefined )
 				size = d.size;
-			return 25 + 10*( size/maxSize );
+			return 30 + 10*( size/maxSize );
 		})
 		.on("click", function(d) {
 			window.location = d.link !== undefined ? d.link : '' ;
@@ -57,22 +57,22 @@ function dv_d3_tree( element, i ){
 			var size = maxSize/2;
 			if( d.size !== undefined )
 				size = d.size;
-			return -(25-2 + 10*( size/maxSize ));
+			return -(30-2 + 10*( size/maxSize ));
 		})
 		.attr("y", function(d){
-			return -27;
+			return -20;
 		})
 		.attr("width", function(d){
 			var size = maxSize/2;
 			if( d.size !== undefined )
 				size = d.size;
-			return 2* (25-2 + 10*( size/maxSize ));
+			return 2* (30-2 + 10*( size/maxSize ));
 		})
 		.attr("height", function(d){
 			var size = maxSize/2;
 			if( d.size !== undefined )
 				size = d.size;
-			return 2* (27 + 10*( size/maxSize ));
+			return 2* (32 + 10*( size/maxSize ));
 		})
 		.style("background-color", "transparent")
 		.style("background", "transparent")
@@ -83,13 +83,14 @@ function dv_d3_tree( element, i ){
 		.style("font", function(d){
 			var len = d.name.length;
 			if( len > 15 )
-				return "10px 'Helvetica Neue'";
+				return "10px 'georgia,\"Times New Roman\", Times, serif'";
 			else if(len > 8)
-				return "12px 'Helvetica Neue'";
+				return "12px 'georgia,\"Times New Roman\", Times, serif'";
 			else
-				return "14px 'Helvetica Neue'";
+				return "14px 'georgia,\"Times New Roman\", Times, serif'";
 		})
 		.style("border-radius", "100%")
+		.style("pointer-events", "none")
 		.style("background-color", "transparent")
 		.style("background", "transparent")
 		.style("text-align", "center")
