@@ -10,7 +10,7 @@ class DataVisualizerAPI {
 		global $wgOut;
 		$wgOut->addModules( 'ext.DataVisualizer' );
 
-		return '<div class="dv_d3_tree" dv_data=' . json_encode($data) .'></div>';
+		return '<div class="dv_d3_tree" style="text-align:center;" dv_data=' . json_encode($data) .'></div>';
 	}
 
 }

@@ -30,7 +30,8 @@ function dv_d3_tree( element, i ){
 
 	var node = svg.selectAll(".node")
 		.data(nodes)
-		.enter().append("g")
+		.enter()
+		.append("g")
 		.attr("class", "node")
 		.attr("transform", function(d) { return "rotate(" + (d.x - 180) + ")translate(" + d.y + ")"; });
 
@@ -40,72 +41,33 @@ function dv_d3_tree( element, i ){
 		maxSize = Math.max(maxSize,child.size);
 	});
 
-	node.append("circle")
-		.attr("r", function(d){ 
+	node.append("a")
+		.attr("xlink:href", function(d) {
+			return d.link !== undefined ? d.link : '';
+		})
+		.append("circle")
+		.attr("r", function(d){
 			var size = maxSize/2;
 			if( d.size !== undefined )
 				size = d.size;
 			return 30 + 10*( size/maxSize );
-		})
-		.on("click", function(d) {
-			window.location = d.link !== undefined ? d.link : '' ;
 		});
 
-	node.append("foreignObject")
+	node.append("text")
 		.attr("transform", function(d) {  return "rotate(" + -(d.x - 180) + ")"; })
-		.attr("x", function(d){
-			var size = maxSize/2;
-			if( d.size !== undefined )
-				size = d.size;
-			return -(30-2 + 10*( size/maxSize ));
-		})
-		.attr("y", function(d){
-			return -20;
-		})
-		.attr("width", function(d){
-			var size = maxSize/2;
-			if( d.size !== undefined )
-				size = d.size;
-			return 2* (30-2 + 10*( size/maxSize ));
-		})
-		.attr("height", function(d){
-			var size = maxSize/2;
-			if( d.size !== undefined )
-				size = d.size;
-			return 2* (32 + 10*( size/maxSize ));
-		})
-		.style("background-color", "transparent")
-		.style("background", "transparent")
-		.on("click", function(d) {
-			window.location = d.link !== undefined ? d.link : '' ;
-		})
-		.append("xhtml:p")
-		.style("font", function(d){
-			var len = d.name.length;
-			if( len > 15 )
-				return "10px 'georgia,\"Times New Roman\", Times, serif'";
-			else if(len > 8)
-				return "12px 'georgia,\"Times New Roman\", Times, serif'";
-			else
-				return "14px 'georgia,\"Times New Roman\", Times, serif'";
-		})
-		.style("border-radius", "100%")
-		.style("pointer-events", "none")
-		.style("background-color", "transparent")
-		.style("background", "transparent")
-		.style("text-align", "center")
-		.style("vertical-align", "middle")
-		.style("padding-top", "10px")
-		.style("padding-left", "3px")
-		.style("padding-right", "3px")
-		.html( function(d){
-			if(d.name.length > 20)
+		.text( function (d) {
+			if( d.name.length > 20 )
 			{
 				d.name = d.name.substr(0,20);
 				d.name += '...';
 			}
-			return d.name.replace(/_/g,' '); }
-		);
+			return d.name.replace(/_/g,' ');
+		})
+		.style("pointer-events", "none")
+		.style("text-anchor", "middle")
+		.style("font", function(d){
+			return "14px 'georgia,\"Times New Roman\", Times, serif'";
+		});
 
 		d3.select(self.frameElement).style("height", diameter - 150 + "px");
 };
