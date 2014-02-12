@@ -66,7 +66,7 @@ function dv_d3_tree( element, i ){
 		.style("pointer-events", "none")
 		.style("text-anchor", "middle")
 		.style("font", function(d){
-			return "14px 'georgia,\"Times New Roman\", Times, serif'";
+			return "10px sans-serif";
 		});
 
 		d3.select(self.frameElement).style("height", diameter - 150 + "px");
