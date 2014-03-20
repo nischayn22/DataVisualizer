@@ -15,6 +15,19 @@ $messages = array();
  * @author Nischayn22
  */
 $messages['en'] = array(
-	'DataVisualizer-desc' => 'API to display data in visual formats',
+	'DataVisualizer-desc' => 'API to display data in visual formats'
+);
 
+
+/** Message documentation (Message documentation)
+ * @author Kghbln
+ */
+$messages['qqq'] = array(
+	'DataVisualizer-desc' => '{{desc|name=DataVisualizer|url=https://www.mediawiki.org/wiki/Extension:DataVisualizer}}'
+
+/** German (Deutsch)
+ * @author Kghbln
+ */
+$messages['de'] = array(
+	'DataVisualizer-desc' => 'Ermöglicht die Darstellung von Daten in verschiedenen grafischen Formaten'
 );
