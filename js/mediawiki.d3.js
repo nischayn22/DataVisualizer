@@ -53,23 +53,40 @@ function dv_d3_tree( element, i ){
 			return 30 + 10*( size/maxSize );
 		});
 
-	node.append("text")
-		.attr("transform", function(d) {  return "rotate(" + -(d.x - 180) + ")"; })
-		.text( function (d) {
-			if( d.name.length > 20 )
-			{
-				d.name = d.name.substr(0,20);
-				d.name += '...';
-			}
-			return d.name.replace(/_/g,' ');
-		})
-		.style("pointer-events", "none")
-		.style("text-anchor", "middle")
-		.style("font", function(d){
-			return "10px sans-serif";
-		});
+	var text = node.append("text")
+				.attr("transform", function(d) {  return "rotate(" + -(d.x - 180) + ")"; })
+				.style("pointer-events", "none")
+				.style("text-anchor", "middle")
+				.style("font", function(d){
+					return "10px sans-serif";
+				})
+				.attr("x", 0 )
+				.attr("y", 0 );
 
-		d3.select(self.frameElement).style("height", diameter - 150 + "px");
+	text.each(function(d){
+		var arr = [];
+		var name = d.name.replace(/_/g,' ');
+		var cur = 0, prev = 0;
+		while(cur < name.length){
+			cur += 10;
+			while(name[cur] != ' ' && cur < name.length) cur++;
+			arr.push(name.substr(prev, cur-prev+1));
+			prev = cur+1;
+		}
+		if (arr.length != 0) {
+			for (i = 0; i < arr.length; i++) {
+				d3.select(this).append("tspan")
+					.text(arr[i])
+					.attr("dy", i ? "1.2em" : 0)
+					.attr("x", 0)
+					.attr("text-anchor", "middle")
+					.attr("class", "tspan" + i);
+			}
+			d3.select(this).attr("y", -3 * (arr.length - 1) );
+		}
+	});
+
+	d3.select(self.frameElement).style("height", diameter - 150 + "px");
 };
 
 ( function ( $ ) {
