@@ -56,16 +56,26 @@ function dv_d3_tree( element, i ){
 	//node is actually an array of nodes but d3 takes care of everything
 	draw_node(node);
 
-	// to make d a d3 object need to do select(this)
-	node.each(function(d) { d = d3.select(this); d.on("mouseover", function(){
-			d.transition().attr("transform", function(d) { return "rotate(" + (d.x - 180) + ")translate(" + 160 + ")"; }).duration(2000);
-		})
-	})
+	if (nodes[0].children.length  > 10) {
+		node.each(function(d) {
+			if (d.children !== undefined)
+				return;
+			// to make d a d3 object need to do select(this)
+			d = d3.select(this);
+			d.on("mouseover", function(){
+				d.transition().attr("transform", function(d) { return "rotate(" + (d.x - 180) + ")translate(" + 160 + ")"; }).duration(2000);
+			});
+		});
 
-	node.each(function(d) { d = d3.select(this); d.on("mouseout", function(){
-			d.transition().attr("transform", function(d) { return "rotate(" + (d.x - 180) + ")translate(" + d.y + ")"; }).delay(100);
-		})
-	})
+		node.each(function(d) {
+			if (d.children !== undefined)
+				return;
+			d = d3.select(this);
+			d.on("mouseout", function(){
+				d.transition().attr("transform", function(d) { return "rotate(" + (d.x - 180) + ")translate(" + d.y + ")"; }).delay(100);
+			});
+		});
+	}
 
 	function draw_node( node ){
 		var text = node.append("text")
